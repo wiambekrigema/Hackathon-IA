@@ -1,3 +1,5 @@
+import numpy as np
+
 class Matrice:
     def __init__(self):
         self.grille = [['0' for _ in range(5)] for _ in range(5)]
@@ -51,8 +53,16 @@ class Matrice:
         else:
             print(f"Mouvement de {position_actuelle} à {nouvelle_position} interdit.")
             return False
+         
+    def trouver_coordonnee(self, symbole):
+        grille_np = np.array(self.grille)
+        resultats = np.where(grille_np == symbole)
+        if resultats[0].size > 0:
+            return (resultats[0][0], resultats[1][0])
+        else:
+            return None
 
-
+         
 matrice = Matrice()
 matrice.placer_point(0, 4, 'G')  
 matrice.placer_point(0, 0, "R")
@@ -60,8 +70,6 @@ matrice.placer_point(4, 0, 'Y')
 matrice.placer_point(4, 3, "B")
 
 
-matrice.placer_point(0, 1, 'P')  
+matrice.placer_point(2, 3, 'X')  # Placez 'P' à la position (2, 3)
+print("Coordonnées de 'X':", matrice.trouver_coordonnee('X'))
 matrice.afficher()
-print("Tentative de déplacement à droite:")
-matrice.deplacer((0, 1), 'droite')
-
