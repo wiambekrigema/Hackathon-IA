@@ -17,13 +17,15 @@ class Taxi:
         self.fenetre.after(100, self.dessiner_points)
         self.fenetre.after(100, self.mise_a_jour_taxi)
 
+
     def dessiner_grille(self):
         print("Dessiner la grille")
         for i in range(5):
             for j in range(5):
                 x1, y1 = j * 80, i * 80
                 x2, y2 = (j + 1) * 80, (i + 1) * 80
-                self.canvas.create_rectangle(x1, y1, x2, y2, outline='black', fill='white')
+                rect_tag = f"rect_{i}_{j}" # Créer une balise unique pour chaque rectangle
+                self.canvas.create_rectangle(x1, y1, x2, y2, outline='black', fill='white', tags=[rect_tag])
                 print(f"Rectangle créé à: ({x1}, {y1}, {x2}, {y2})")
 
     def dessiner_points(self):
@@ -48,11 +50,12 @@ class Taxi:
             x2, y2 = y * 80 + 70, x * 80 + 70
             self.canvas.create_image(x1, y1, image=self.image, anchor='nw', tags="taxi")
             print(f"Taxi créé à: ({x1}, {y1})")
+            self.canvas.itemconfig('case', fill='#000000')
 
 # Exemple d'utilisation
 root = tk.Tk()
 matrice = Matrice()
 matrice.placer_point(2, 2, 'P') # Placer le taxi à la position initiale
 app = Taxi(root, matrice )
-app.image = tk.PhotoImage(file=r"C:\Users\PimPim\Documents\GitHub\Hackathon-IA\taxi.png") # Charger l'image
+app.image = tk.PhotoImage(file=r"taxi.png") # Charger l'image
 root.mainloop()
