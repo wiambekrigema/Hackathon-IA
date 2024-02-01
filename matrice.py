@@ -46,11 +46,20 @@ class Matrice:
         # Vérifier si le déplacement est autorisé
         if self.est_mouvement_autorise(position_actuelle, direction):
             print(f"Mouvement de {position_actuelle} à {nouvelle_position} autorisé.")
-            # Ici, vous pouvez mettre à jour la position sur la grille si nécessaire
+            symbole = self.grille[x][y]
+            self.placer_point(x, y, '0')  # Remplace l'ancienne position par '0'
+            self.placer_point(*nouvelle_position, symbole)  # Place le symbole à la nouvelle position
             return True
         else:
             print(f"Mouvement de {position_actuelle} à {nouvelle_position} interdit.")
             return False
+        # Chercher l'indice de la valeur 1 dans la matrice
+    def indice(self):
+            for i in range(len(self.grille)):
+                for j in range(len(self.grille[i])):
+                    if self.grille[i][j] == 'P':
+                        print("Indice de la valeur 'P' :", (i, j))
+                        return (i,j)
 
 
 matrice = Matrice()
@@ -60,8 +69,8 @@ matrice.placer_point(4, 0, 'Y')
 matrice.placer_point(4, 3, "B")
 
 
-matrice.placer_point(0, 1, 'P')  
+matrice.placer_point(2, 2, 'P')  
 matrice.afficher()
 print("Tentative de déplacement à droite:")
-matrice.deplacer((0, 1), 'droite')
-
+matrice.deplacer(matrice.indice(), 'droite')
+matrice.afficher()
