@@ -34,8 +34,8 @@ class Taxi:
                 if self.matrice.grille[i][j] != '0':
                     x1, y1 = j * 80 + 10, i * 80 + 10
                     x2, y2 = j * 80 + 70, i * 80 + 70
-                    self.canvas.create_oval(x1, y1, x2, y2, fill='yellow')
-                    print(f"Ovale créé à: ({x1}, {y1}, {x2}, {y2})")
+                    self.canvas.create_image(x1, y1, image=self.image, anchor='nw')
+                    print(f"Image créée à: ({x1}, {y1})")
 
     def mise_a_jour_taxi(self):
         print("Mise à jour du taxi")
@@ -46,12 +46,13 @@ class Taxi:
             self.canvas.delete("taxi")
             x1, y1 = y * 80 + 10, x * 80 + 10
             x2, y2 = y * 80 + 70, x * 80 + 70
-            self.canvas.create_oval(x1, y1, x2, y2, fill='yellow', tags="taxi")
-            print(f"Taxi créé à: ({x1}, {y1}, {x2}, {y2})")
+            self.canvas.create_image(x1, y1, image=self.image, anchor='nw', tags="taxi")
+            print(f"Taxi créé à: ({x1}, {y1})")
 
 # Exemple d'utilisation
 root = tk.Tk()
 matrice = Matrice()
-matrice.placer_point(2, 2, 'P')  # Placer le taxi à la position initiale
+matrice.placer_point(2, 2, 'P') # Placer le taxi à la position initiale
 app = Taxi(root, matrice )
+app.image = tk.PhotoImage(file=r"C:\Users\PimPim\Documents\GitHub\Hackathon-IA\taxi.png") # Charger l'image
 root.mainloop()
