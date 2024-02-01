@@ -46,6 +46,16 @@ class Taxi:
                     self.canvas.create_line(y * 80, x * 80, y * 80, (x + 1) * 80, width=2, fill='black')
                 elif direction == 'droite':
                     self.canvas.create_line((y + 1) * 80, x * 80, (y + 1) * 80, (x + 1) * 80, width=5, fill='black')
+        for i in range(5):
+            for j in range(5):
+               if self.matrice.grille[i][j] == 'R':
+                   self.canvas.create_rectangle(j * 80 + 10, i * 80 + 10, j * 80 + 70, i * 80 + 70, fill='red')
+               elif self.matrice.grille[i][j] == 'Y':
+                   self.canvas.create_rectangle(j * 80 + 10, i * 80 + 10, j * 80 + 70, i * 80 + 70, fill='yellow')
+               elif self.matrice.grille[i][j] == 'G':
+                   self.canvas.create_rectangle(j * 80 + 10, i * 80 + 10, j * 80 + 70, i * 80 + 70, fill='green')
+               elif self.matrice.grille[i][j] == 'B':
+                   self.canvas.create_rectangle(j * 80 + 10, i * 80 + 10, j * 80 + 70, i * 80 + 70, fill='blue')
     def mise_a_jour_taxi(self):
         print("Mise à jour du taxi")
         taxi_pos = self.matrice.indice()
@@ -62,7 +72,9 @@ class Taxi:
 # Exemple d'utilisation
 root = tk.Tk()
 matrice = Matrice()
-matrice.placer_point(2, 2, 'P') # Placer le taxi à la position initiale
+matrice.placer_point(0, 0, 'R')
+matrice.placer_point(4, 0, 'Y')
+matrice.placer_point(2, 2, 'P')
 app = Taxi(root, matrice )
 app.image = tk.PhotoImage(file=r"taxi.png") # Charger l'image
 root.mainloop()
