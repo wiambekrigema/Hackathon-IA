@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 from matrice import  Matrice
-=======
+
 import numpy as np
 
 class machine_learning :    
@@ -34,7 +33,7 @@ test=machine_learning(1, M)
 test.taxi_init()
 test.affiche()
 test.trouve_indice()
->>>>>>> 73ee783bcd724be78556583cd2c19043eeebc06d
+
 
 
 matrice = Matrice()
