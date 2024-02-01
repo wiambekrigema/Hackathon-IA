@@ -15,6 +15,7 @@ class Taxi:
         # Initialiser la grille et les points après un court délai pour s'assurer que la fenêtre est affichée
         self.fenetre.after(100, self.dessiner_grille)
         self.fenetre.after(100, self.dessiner_points)
+        self.fenetre.after(100, self.dessiner_obstacles)
         self.fenetre.after(100, self.mise_a_jour_taxi)
 
 
@@ -25,7 +26,7 @@ class Taxi:
                 x1, y1 = j * 80, i * 80
                 x2, y2 = (j + 1) * 80, (i + 1) * 80
                 rect_tag = f"rect_{i}_{j}" # Créer une balise unique pour chaque rectangle
-                self.canvas.create_rectangle(x1, y1, x2, y2, outline='black', fill='white', tags=[rect_tag])
+                self.canvas.create_rectangle(x1, y1, x2, y2, outline='grey', fill='white', tags=[rect_tag])
                 print(f"Rectangle créé à: ({x1}, {y1}, {x2}, {y2})")
 
     def dessiner_points(self):
@@ -38,7 +39,13 @@ class Taxi:
                     x2, y2 = j * 80 + 70, i * 80 + 70
                     self.canvas.create_image(x1, y1, image=self.image, anchor='nw')
                     print(f"Image créée à: ({x1}, {y1})")
-
+    def dessiner_obstacles(self):
+        for (x, y), directions in self.matrice.mouvements_interdits.items():
+            for direction in directions:
+                if direction == 'gauche':
+                    self.canvas.create_line(y * 80, x * 80, y * 80, (x + 1) * 80, width=2, fill='black')
+                elif direction == 'droite':
+                    self.canvas.create_line((y + 1) * 80, x * 80, (y + 1) * 80, (x + 1) * 80, width=5, fill='black')
     def mise_a_jour_taxi(self):
         print("Mise à jour du taxi")
         taxi_pos = self.matrice.indice()
